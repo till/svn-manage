@@ -1,4 +1,19 @@
 #/usr/bin/env php
+/**
+ * svn-manage
+ *
+ * PHP Version 5
+ *
+ * Oh -- the irony, a script to deal with SVN, hosted with GIT!
+ *
+ * @category system
+ * @package  svn-manage
+ * @author   Till Klampaeckel <till@php.net>
+ * @license  http://foo New BSD License
+ * @link     http://till.klampaeckel.de/blog/
+ * @todo     Use another PEAR package to parse 'args'.
+ * @todo     Clean-up code, more OO, less procedural, some docs.
+ */
 <?php
 $svn_client = '/usr/bin/env svn';
 $svn_user   = '';
