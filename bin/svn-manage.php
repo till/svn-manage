@@ -1,4 +1,5 @@
-#/usr/bin/env php
+#!/usr/bin/env php
+<?php
 /**
  * svn-manage
  *
@@ -14,25 +15,23 @@
  * @todo     Use another PEAR package to parse 'args'.
  * @todo     Clean-up code, more OO, less procedural, some docs.
  */
-<?php
-$svn_client = '/usr/bin/env svn';
+$svn_client = '/usr/local/bin/svn';
 $svn_user   = '';
 $svn_passwd = '';
 
 
 if (!is_executable($svn_client)) {
-    die('Could not find svn client.');
+    die('Could not find svn client: ' . $svn_client);
 }
 $svn_cmd = svn_command();
 
 $path = getPath();
 
-$files = list($path);
+$files = listTodo($path);
 
 if (count($files) == 0) {
     die('Nothing found, you are all set!');
 }
-
 bulk($files, $path);
 
 
@@ -53,16 +52,23 @@ function getPath()
     return $path;
 }
 
-function list($path)
+function listTodo($path)
 {
     global $svn_client;
-    $files = exec("{$svn_client} status {$path}");
+    ob_start();
+    system("{$svn_client} status {$path}");
+    $files = ob_get_contents();
+    ob_end_clean();
+    $files = explode("\n", $files);
     return $files;
 }
 
 function bulk(array $files, $path)
 {
     foreach ($files as $file) {
+        if (empty($file)) {
+            continue;
+        }
         $st = substr($file, 0, 2);
         $f  = trim(str_replace($st, '', $file));
         
@@ -103,7 +109,7 @@ function svn_command()
     global $svn_client, $svn_user, $svn_passwd;
 
     $cmd  = $svn_client;
-    $cmd .= ' --non-interactive';
+    //$cmd .= ' --non-interactive';
     if (!empty($svn_user)) {
         $cmd .= " --username {$svn_user}";
         if (!empty($svn_passwd)) {
