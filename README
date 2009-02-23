@@ -7,10 +7,16 @@ up working via FTP and someone has to pull it together.
 
 Here's an example of your daily "svn status":
 ?  path/to/foo.txt
+M  path/to/fg/foobar1.txt
+M  path/to/hi/foobar2.txt
+M  path/to/jk/foobar3.txt
+M  path/to/lm/foobar4.txt
 !  path/to/bar.txt
+?  path/to/foo.txt
 M  path/to/foobar.txt
+?  path/me/no/like/VCS/
 
-(20 or more, of course!)
+(Think more complex paths and multiply the above by 10!)
 
 svn-manage to the rescue! This script let's you cleanup whatever other people left
 behind. It's not meant to really "figure out" what went wrong or how to resolve
