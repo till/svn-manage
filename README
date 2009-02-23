@@ -34,7 +34,7 @@ This installs svn-manage into one of these paths:
 
 /usr/local/bin/svn-manage
 /usr/bin/svn-manage
-/bin/svn-image
+/bin/svn-manage
 
 ---
 
