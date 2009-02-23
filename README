@@ -1,0 +1,27 @@
+How do you install this? Easy!
+++++++++++++++++++++++++++++++
+
+1) git clone git://github.com/till/svn-manage.git ./svn-manage
+2) cd svn-manage
+3) [sudo] pear install --all-deps package.xml
+
+This installs svn-manage into one of these paths:
+
+/usr/local/bin/svn-manage
+/usr/bin/svn-manage
+/bin/svn-image
+
+---
+
+How do you use it?
+++++++++++++++++++
+
+1) Simple:
+svn-manage -t /local/path/to/your/repo
+
+2) With username/password (for SVN):
+svn-manage -u till -p -t /local/path/to/your/repo
+
+---
+
+That's all, kiddos! Email me if you have feedback!
