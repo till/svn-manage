@@ -194,7 +194,10 @@ function svn_add($file)
 function svn_commit($path)
 {
     global $svn_cmd;
-    exec("{$svn_cmd} commit -m '* cleanup, using svn-manage' {$path}");
+
+    $now = date('Y/m/d H:i:s');
+
+    exec("{$svn_cmd} commit -m '* cleanup, using svn-manage ($now)' {$path}");
 }
 
 function svn_command()
