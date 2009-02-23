@@ -1,9 +1,9 @@
 What is it?
 +++++++++++
 
-Imagine you are working with other people on project and they just don't get the
-idea of version control, and you'r tired of explaining. So all these people end
-up working via FTP and someone has to pull it together.
+Imagine you are working with other people on a project and they just don't get the
+idea of version control, and you'r tired of explaining. So all these people end up
+working via FTP and someone has to pull it together.
 
 Here's an example of your daily "svn status":
 ?  path/to/foo.txt
