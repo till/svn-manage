@@ -5,23 +5,86 @@
  *
  * PHP Version 5
  *
- * Oh -- the irony, a script to deal with SVN, hosted with GIT!
+ * Oh -- the irony, a script to deal with SVN, hosted on GITHUB!
  *
- * @category system
- * @package  svn-manage
+ * @category System
+ * @package  Lagged_Subversion_Manage
  * @author   Till Klampaeckel <till@php.net>
- * @license  http://foo New BSD License
+ * @version  GIT: $Id$
+ * @license  http://www.opensource.org/licenses/bsd-license.php The New BSD License
+ * @link     http://github.com/till/svn-manage/tree/master
  * @link     http://till.klampaeckel.de/blog/
  * @todo     Use another PEAR package to parse 'args'.
  * @todo     Clean-up code, more OO, less procedural, some docs.
  */
-$svn_client = '/usr/local/bin/svn';
+
+$base = dirname('@php_bin@');
+
+$svn_client = $base . '/svn';
+
+/**
+ * @global
+ */
 $svn_user   = '';
 $svn_passwd = '';
 
+/**
+ * Console_CommandLine
+ * @ignore
+ */
+require_once 'Console/CommandLine.php';
+
+$parser = new Console_CommandLine();
+
+$parser->description = 'A tool to mass-manage changes in an SVN repository';
+$parser->version     = '@package_version@';
+
+$parser->addOption('username', array(
+    'short_name'  => '-u',
+    'long_name'   => '--username',
+    'description' => 'A username for Subversion.',
+    'action'      => 'StoreString'
+));
+$parser->addOption('password', array(
+    'short_name'  => '-p',
+    'long_name'   => '--password',
+    'description' => "A password for Subversion.",
+    'action'      => 'Password'
+));
+$parser->addOption('target', array(
+    'short_name'  => '-t',
+    'long_name'   => '--target',
+    'description' => "The path to your repository.",
+    'action'      => 'StoreString'
+));
+
+try {
+    $result = $parser->parse();
+    if (isset($result->options['username'])) {
+        $svn_user .= $result->options['username'];
+        if (isset($result->options['passwd'])) {
+            $svn_passwd .= $result->options['password'];
+        }
+    }
+    if (!isset($result->options['target'])) {
+        echo "Please supply a target path.\n";
+        exit(0);
+    }
+    $target = $result->options['target'];
+} catch (Console_CommandLine_Exception $e) {
+    echo $e->getMessage() . "\n";
+    exit(0);
+}
+
+/**
+ * Console_ProgressBar
+ * @ignore
+ */
+require_once 'Console/ProgressBar.php';
 
 if (!is_executable($svn_client)) {
-    die('Could not find svn client: ' . $svn_client);
+    echo "Could not find svn client: {$svn_client}\n";
+    exit(0);
 }
 $svn_cmd = svn_command();
 
@@ -30,28 +93,41 @@ $path = getPath();
 $files = listTodo($path);
 
 if (count($files) == 0) {
-    die('Nothing found, you are all set!');
+    echo "Nothing found, you are all set!\n";;
+    exit(1);
 }
 bulk($files, $path);
 
 
 // FUNCTION LIB
 
+/**
+ * Test the target path.
+ *
+ * @return string
+ */
 function getPath()
 {
-    if ($_SERVER['argc'] == 0 || $_SERVER['argc'] == 1) {
-        die('Please use ./file path');
+    global $target;
+
+    if (!file_exists($target)) {
+        echo "Supplied path does not exist.\n";
+        exit(0);
     }
-    $path = $_SERVER['argv'][1];
-    if (!file_exists($path)) {
-        die('Supplied path does not exist.');
+    if (!is_readable($target)) {
+        echo "Supplied path is not readable.\n";
+        exit(0);
     }
-    if (!is_readable($path)) {
-        die('Supplied path is not readable.');
-    }
-    return $path;
+    return $target;
 }
 
+/**
+ * Get whatever needs to be done.
+ *
+ * @param string $path The path of the repository.
+ *
+ * @return array
+ */
 function listTodo($path)
 {
     global $svn_client;
@@ -63,8 +139,20 @@ function listTodo($path)
     return $files;
 }
 
+/**
+ * @param array  $files The files to work.
+ * @param string $path  The path of the repository.
+ *
+ * @return void
+ * @uses   Console_ProgressBar::__construct()
+ * @uses   svn_delete()
+ * @uses   svn_add()
+ * @uses   svn_commit()
+ */
 function bulk(array $files, $path)
 {
+    $bar = new Console_ProgressBar('[%bar%] %percent%', '=>', ' ', 80, count($files));
+    $x   = 0;
     foreach ($files as $file) {
         if (empty($file)) {
             continue;
@@ -82,7 +170,13 @@ function bulk(array $files, $path)
         case 'M ':
             break;
         }
+        $x++;
+        $bar->update($x);
     }
+    $bar->erase();
+
+    echo "\n\tCommitting files...";
+
     svn_commit($path);
 }
 
@@ -120,3 +214,5 @@ function svn_command()
 
     return $cmd;
 }
+echo "\n";
+exit(1);
