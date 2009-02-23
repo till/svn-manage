@@ -1,3 +1,22 @@
+What is it?
++++++++++++
+
+Imagine you are working with other people on project and they just don't get the
+idea of version control, and you'r tired of explaining. So all these people end
+up working via FTP and someone has to pull it together.
+
+Here's an example of your daily "svn status":
+?  path/to/foo.txt
+!  path/to/bar.txt
+M  path/to/foobar.txt
+
+(20 or more, of course!)
+
+svn-manage to the rescue! This script let's you cleanup whatever other people left
+behind. It's not meant to really "figure out" what went wrong or how to resolve
+conflicts or how to commit the right thing. It's for people who just want to get it
+done -- because you can always revert later! :-D
+
 How do you install this? Easy!
 ++++++++++++++++++++++++++++++
 
