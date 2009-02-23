@@ -14,7 +14,6 @@
  * @license  http://www.opensource.org/licenses/bsd-license.php The New BSD License
  * @link     http://github.com/till/svn-manage/tree/master
  * @link     http://till.klampaeckel.de/blog/
- * @todo     Use another PEAR package to parse 'args'.
  * @todo     Clean-up code, more OO, less procedural, some docs.
  */
 
