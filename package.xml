@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package packagerversion="1.4.10" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0
+http://pear.php.net/dtd/tasks-1.0.xsd
+http://pear.php.net/dtd/package-2.0
+http://pear.php.net/dtd/package-2.0.xsd">
+ <name>Lagged_Subversion_Manage</name>
+ <uri>__uri</uri>
+ <summary>Mass-manage changes in a repository.</summary>
+ <description>
+The idea is to mass-commit, delete, add changes to a repository if you are working with others who don't use SVN.
+
+I just got tired of writing the same script again and again.
+ </description>
+ <lead>
+  <name>Till Klampaeckel</name>
+  <user>till</user>
+  <email>till@php.net</email>
+  <active>yes</active>
+ </lead>
+ <date>2009-02-23</date>
+ <time>13:00:00</time>
+ <version>
+  <release>0.1.0</release>
+  <api>0.1.0</api>
+ </version>
+ <stability>
+  <release>alpha</release>
+  <api>alpha</api>
+ </stability>
+ <license uri="http://www.opensource.org/licenses/bsd-license.php">The New BSD License</license>
+ <notes>
+* initial release
+ </notes>
+ <contents>
+  <dir name="/">
+   <dir name="bin/">
+    <file name="svn-manage.php" role="script">
+     <tasks:replace from="@package_version@" to="version" type="package-info" />
+     <tasks:replace from="@data_dir@" to="data_dir" type="pear-config" />
+     <tasks:replace from="@php_bin@" to="php_bin" type="pear-config" />
+    </file>
+   </dir>
+  </dir>
+ </contents>
+ <dependencies>
+  <required>
+   <php>
+    <min>5.2.5</min>
+   </php>
+   <pearinstaller>
+    <min>1.4.0b1</min>
+   </pearinstaller>
+   <package>
+    <name>Console_ProgressBar</name>
+    <channel>pear.php.net</channel>
+    <min>0.5.2beta</min>
+   </package>
+   <package>
+    <name>Console_CommandLine</name>
+    <channel>pear.php.net</channel>
+    <min>1.0.4</min>
+   </package>
+  </required>
+ </dependencies>
+ <phprelease>
+  <filelist>
+   <install as="svn-manage" name="bin/svn-manage.php" />
+  </filelist>
+ </phprelease>
+ <changelog>
+  <release>
+   <version>
+    <release>0.1.0</release>
+    <api>0.1.0</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2009-02-23</date>
+   <license uri="http://www.opensource.org/licenses/bsd-license.php">The New BSD License</license>
+   <notes>
+* initial release
+   </notes>
+  </release>
+ </changelog>
+</package>
+
