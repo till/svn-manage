@@ -23,6 +23,9 @@ behind. It's not meant to really "figure out" what went wrong or how to resolve
 conflicts or how to commit the right thing. It's for people who just want to get it
 done -- because you can always revert later! :-D
 
+In simple words -- this script auto-deletes, -commits and -adds changes/files to
+your repository.
+
 How do you install this? Easy!
 ++++++++++++++++++++++++++++++
 
