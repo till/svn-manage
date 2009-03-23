@@ -17,11 +17,11 @@ I just got tired of writing the same script again and again.
   <email>till@php.net</email>
   <active>yes</active>
  </lead>
- <date>2009-02-23</date>
- <time>13:00:00</time>
+ <date>2009-03-23</date>
+ <time>15:45:00</time>
  <version>
-  <release>0.1.0</release>
-  <api>0.1.0</api>
+  <release>0.1.1</release>
+  <api>0.1.1</api>
  </version>
  <stability>
   <release>alpha</release>
@@ -29,7 +29,7 @@ I just got tired of writing the same script again and again.
  </stability>
  <license uri="http://www.opensource.org/licenses/bsd-license.php">The New BSD License</license>
  <notes>
-* initial release
+* bugfix: no --username and --password arguments to svn add/delete
  </notes>
  <contents>
   <dir name="/">
@@ -68,6 +68,21 @@ I just got tired of writing the same script again and again.
   </filelist>
  </phprelease>
  <changelog>
+  <release>
+   <version>
+    <release>0.1.1</release>
+    <api>0.1.1</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2009-03-23</date>
+   <license uri="http://www.opensource.org/licenses/bsd-license.php">The New BSD License</license>
+   <notes>
+* bugfix: no --username and --password arguments to svn add/delete
+   </notes>
+  </release>
   <release>
    <version>
     <release>0.1.0</release>
