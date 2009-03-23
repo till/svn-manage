@@ -181,32 +181,32 @@ function bulk(array $files, $path)
 
 function svn_delete($file)
 {
-    global $svn_cmd;
+    $svn_cmd = svn_command(false);
     exec("{$svn_cmd} delete --force {$file}");
 }
 
 function svn_add($file)
 {
-    global $svn_cmd;
+    $svn_cmd = svn_command(false);
     exec("{$svn_cmd} add {$file}");
 }
 
 function svn_commit($path)
 {
-    global $svn_cmd;
+    $svn_cmd = svn_command();
 
     $now = date('Y/m/d H:i:s');
 
     exec("{$svn_cmd} commit -m '* cleanup, using svn-manage ($now)' {$path}");
 }
 
-function svn_command()
+function svn_command($includeUserPassword = true)
 {
     global $svn_client, $svn_user, $svn_passwd;
 
     $cmd  = $svn_client;
     //$cmd .= ' --non-interactive';
-    if (!empty($svn_user)) {
+    if (!empty($svn_user) && $includeUserPassword === true) {
         $cmd .= " --username {$svn_user}";
         if (!empty($svn_passwd)) {
             $cmd .= " --password {$svn_passwd}";
